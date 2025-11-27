@@ -1,0 +1,1 @@
+//wenn man auf RoomComponent klicjkt, dann werden die details des Rooms angezeigt
