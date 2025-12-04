@@ -1,8 +1,11 @@
 import { useState } from 'react'
 import RoomComponent from './RoomComponent'
+import FilterComponentRoom from './FilterComponentRoom'
 
 export default function Rooms() {
   const [query, setQuery] = useState('')
+  const [showFilters, setShowFilters] = useState(false)
+  const [filters, setFilters] = useState({})
 
   // Example rooms array — currently set to 5 items for demo.
   // You can change the number of rooms here or replace this with a
@@ -17,13 +20,25 @@ export default function Rooms() {
 
   return (
     <div className="page">
-      <div className="rooms-top">
+      <div className="rooms-top" style={{ position: 'relative' }}>
         <input
           className="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search rooms or features..."
         />
+        <button
+          onClick={() => setShowFilters((s) => !s)}
+          style={{ marginLeft: 10, padding: '8px 10px', borderRadius: 6, cursor: 'pointer' }}
+        >
+          Filters
+        </button>
+
+        {showFilters && (
+          <div style={{ position: 'absolute', top: 48, right: 0, zIndex: 50 }}>
+            <FilterComponentRoom onFilterChange={setFilters} initialFilters={filters} />
+          </div>
+        )}
       </div>
 
       {/* map the rooms array to RoomComponent instances */}
